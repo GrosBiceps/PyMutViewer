@@ -259,5 +259,4 @@ GET http://127.0.0.1:8123/mutviewer/search?gene=EGFR&mut=E746_A750del
 
 ## Licence
 
-Choisissez une licence (ex. **MIT**, **BSD‑3**, **GPL‑3.0**).  
-Ajoutez le fichier `LICENSE` au dépôt.
+License ajouté au dépot
