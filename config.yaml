@@ -31,6 +31,7 @@ server:
 
 # Configuration de l'application
 application:
-  title: "MutViewer - Visualiseur de mutations 3D"
+  title: "PyMutViewer - Visualiseur de mutations 3D"
   http_timeout: 180
+
   http_retries: 3
