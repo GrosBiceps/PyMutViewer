@@ -1,0 +1,10 @@
+PyQt5
+PyQtWebEngine
+py3Dmol
+pandas
+requests
+urllib3
+html2image
+PyPDF2
+Pillow
+pyyaml

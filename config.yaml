@@ -1,0 +1,36 @@
+# Configuration pour MutViewer
+# Ce fichier sera automatiquement généré si config.yaml n'existe pas
+
+# Configuration du proxy
+proxy:
+  # Désactiver les proxies par défaut
+  use_chu_proxy: false
+  
+  # Proxy par défaut (non utilisé si use_chu_proxy est false)
+  proxy_selected: "chu_limousin"
+  
+  # Configuration des proxies disponibles
+  proxies:
+    chu_limousin:
+      http: "http://proxy-bma.ght-limousin.fr:8080"
+      https: "http://proxy-bma.ght-limousin.fr:8080"
+
+# Configuration du serveur HTTP interne
+server:
+  # Localhost uniquement par défaut
+  ip: "127.0.0.1"
+  port: 8123
+  
+  # Token de sécurité (recommandé en production)
+  token: "mutviewer-2024-secure"
+  
+  # IPs autorisées
+  allowed_ips:
+    - "127.0.0.1"
+    - "::1"
+
+# Configuration de l'application
+application:
+  title: "MutViewer - Visualiseur de mutations 3D"
+  http_timeout: 180
+  http_retries: 3
