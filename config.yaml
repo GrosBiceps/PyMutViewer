@@ -12,8 +12,8 @@ proxy:
   # Configuration des proxies disponibles
   proxies:
     chu_limousin:
-      http: "http://proxy-bma.ght-limousin.fr:8080"
-      https: "http://proxy-bma.ght-limousin.fr:8080"
+      http: "http://proxy-test.fr:8080"
+      https: "http://proxy-test.fr:8080"
 
 # Configuration du serveur HTTP interne
 server:
@@ -35,3 +35,4 @@ application:
   http_timeout: 180
 
   http_retries: 3
+
