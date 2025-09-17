@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MolArt – test local (adapté de l'exemple)</title>
+
+    <script type="text/javascript" src="./dist/molart.js"></script>
+    <!-- <link rel="stylesheet" href="./molart/dist/molart.css" /> -->
+
+    <style>
+      html,body{padding:0;margin:0}
+      body{background:#8ba5ab}
+      .hint{position:fixed;left:0;right:0;top:0;height:40px;display:flex;align-items:center;gap:10px;padding:0 12px;box-sizing:border-box;background:rgba(0,0,0,.1);backdrop-filter:saturate(150%) blur(2px);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+      #pv3dContainer{width:95%;height:90vh;border:3px solid #000;border-radius:10px;margin:20px;position:absolute;top:40px;overflow:auto;background:#fff}
+      input{font:inherit;padding:4px 6px;border-radius:8px;border:1px solid #333}
+      button{font:inherit;padding:6px 10px;border-radius:8px;border:0;background:#1f6feb;color:#fff;cursor:pointer}
+    </style>
+  </head>
+
+  <body>
+    <div class="hint">
+      <strong>MolArt</strong>
+      <span>Astuce&nbsp;: ajoute <code>?uniprot=P00533</code> à l'URL</span>
+      <form id="f" onsubmit="return false" style="margin-left:auto;display:flex;gap:6px;align-items:center">
+        <label for="u">UniProt</label>
+        <input id="u" placeholder="ex: P00846" />
+        <button id="b">Charger</button>
+      </form>
+    </div>
+
+    <div id="pv3dContainer"></div>
+
+    <script type="application/javascript">
+      // Adaptation fidèle de l'exemple fonctionnel :
+      // - Utilise le constructeur global `new MolArt({...})`
+      // - Cible le conteneur par son id via `containerId`
+      // - Laisse `alwaysLoadPredicted: true` comme dans l'exemple
+      // - Lecture de l'ID UniProt depuis l'URL (fallback P00846)
+
+      function getUniProtFromURL(defaultId){
+        const q = new URLSearchParams(location.search);
+        const v = (q.get('uniprot')||'').trim();
+        return v || defaultId;
+      }
+
+      function boot(uniprotId){
+        // Nettoie une éventuelle instance précédente
+        if (window.molart && typeof window.molart.destroy === 'function') {
+          try { window.molart.destroy(); } catch(e) {}
+        }
+        // Instanciation comme dans l'exemple fourni
+        window.molart = new MolArt({
+          uniprotId: uniprotId,            // ex: 'P00846'
+          containerId: 'pv3dContainer',    // conteneur 3D
+          alwaysLoadPredicted: true        // idem exemple
+          // Autres options possibles (décommente si besoin):
+          // pdbIds: ['6cu7','2m55'],
+          // smrIds: ['3q27.1','2n0a.1'],
+          // includePredictProtein: true,
+          // categoriesTooltips: [['PREDICT_PROTEIN','Predictions from PredictProtein.org']],
+          // sortStructures: 'id',
+          // highlightByHovering: true,
+          // alphaFoldConfidence: { threshold: 40, startWithAll: true },
+        });
+      }
+
+      window.onload = function(){
+        const defaultId = 'P00846'; // même valeur que l'exemple
+        const uInput = document.getElementById('u');
+        const btn = document.getElementById('b');
+        const initial = getUniProtFromURL(defaultId);
+        uInput.value = initial;
+        boot(initial);
+        btn.addEventListener('click', () => {
+          const v = (uInput.value||'').trim();
+          if (v) boot(v);
+        });
+      };
+    </script>
+  </body>
+</html>
