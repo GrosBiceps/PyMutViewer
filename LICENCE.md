@@ -34,7 +34,7 @@ Toute violation de la présente licence met **immédiatement fin** à toute auto
 La présente licence est soumise au **droit français**. Tout litige sera de la compétence exclusive des **tribunaux du ressort du domicile du concédant**.
 
 ## 10) Contact
-Pour demander une autorisation écrite, contacter : **flo40600@gmail.com**.
+Pour demander une autorisation écrite, contacter Florian Magne.
 
 ---
 
