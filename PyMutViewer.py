@@ -773,13 +773,24 @@ def vep_hgvs_fast(hgvs_notation: str, progress_callback=None) -> dict:
     return out
 
 def fetch_alphafold_pdb(uniprot_id: str, timeout=180) -> str:
-    url = f"https://alphafold.ebi.ac.uk/files/AF-{uniprot_id}-F1-model_v4.pdb"
-    s = create_robust_session(timeout=timeout, retries=2)
-    r = s.get(url)
-    r.raise_for_status()
-    text = r.text
-    s.close()
-    return text
+    # use the alphafold API to get the prediction
+    url = f"https://alphafold.ebi.ac.uk/api/prediction/{uniprot_id}"
+
+    with create_robust_session(timeout=timeout, retries=2) as s:
+        r = s.get(url)
+        r.raise_for_status()
+        data = json.loads(r.text)
+        
+        if len(data) > 0:
+            # get the pdb url from the first item
+            pdb_url = data[0]['pdbUrl']
+
+            # get the pdb content
+            r = s.get(pdb_url)
+            r.raise_for_status()
+            return r.text
+        else:
+            raise ValueError(f"No Alphafold prediction found for : {uniprot_id}")
 
 def fetch_uniprot_features(uniprot_id: str, timeout=180):
     if pd is None: return None
